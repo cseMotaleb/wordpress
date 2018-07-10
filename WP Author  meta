@@ -1,0 +1,63 @@
+<?php $author_id=$post->post_author; ?>
+<img src="<?php the_author_meta( 'avatar' , $author_id ); ?> " width="140" height="140" class="avatar" alt="<?php echo the_author_meta( 'display_name' , $author_id ); ?>" />
+<?php the_author_meta( 'user_nicename' , $author_id ); ?> 
+
+
+//Function
+
+
+<?php
+// Add to your theme's functions.php
+//
+// You can access this data anywhere in your 
+// theme by using get_the_author_meta()
+function custom_author_links( $author_social_link ) {
+
+  $author_social_link['rss_url'] = 'RSS URL';
+  $author_social_link['google_profile'] = 'Google Profile URL';
+  $author_social_link['twitter_profile'] = 'Twitter Profile URL';
+  $author_social_link['facebook_profile'] = 'Facebook Profile URL';
+  $author_social_link['linkedin_profile'] = 'Linkedin Profile URL';
+
+  return $author_social_link;
+}
+
+add_filter( 'user_contactmethods', 'custom_author_links', 10, 1);
+?>;
+
+
+
+//Template display
+
+<div class="profile__meta">
+    <h3 class="profile-name"><?php the_author(); ?></h3>
+
+    <?php if ( get_the_author_meta('description') ) : ?>
+    <div class="profile-desc"><?php the_author_meta('description'); ?></div>
+    <?php endif; ?>
+
+    <?php if ( get_the_author_meta('user_url') ) : ?>
+    <a href="<?php esc_url( the_author_meta('user_url')); ?>" class="profile-url"><?php the_author_meta('user_url'); ?></a>
+    <?php endif; ?>
+
+    <?php if ( get_the_author_meta('rss_url') ) : ?>
+    <a href="<?php esc_url( the_author_meta('rss_url')); ?>" class="rss-url"><?php echo get_the_author_meta( 'rss_url' ); ?></a>
+    <?php endif; ?>
+
+    <?php if ( get_the_author_meta('twitter_profile') ) : ?>
+    <a href="<?php esc_url( the_author_meta('twitter_profile')); ?>" class="twitter-url"><?php echo get_the_author_meta( 'twitter_profile' ); ?></a>
+    <?php endif; ?>
+
+    <?php if ( get_the_author_meta('google_profile') ) : ?>
+    <a href="<?php esc_url( the_author_meta('google_profile')); ?>" class="google-url"><?php echo get_the_author_meta( 'google_profile' ); ?></a>
+    <?php endif; ?>
+
+    <?php if ( get_the_author_meta('facebook_profile') ) : ?>
+    <a href="<?php esc_url( the_author_meta('facebook_profile')); ?>" class="facebook-url"><?php echo get_the_author_meta( 'facebook_profile' ); ?></a>
+    <?php endif; ?>
+
+    <?php if ( get_the_author_meta('linkedin_profile') ) : ?>
+    <a href="<?php esc_url( the_author_meta('linkedin_profile')); ?>" class="linkedin-url"><?php echo get_the_author_meta( 'linkedin_profile' ); ?></a>
+    <?php endif; ?>
+
+  </div>
